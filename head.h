@@ -8,6 +8,12 @@
 #include <sys/types.h>
 #include <sys/stats.h>
 #include <string.h>
-#include <limits.h>
+#include <fcntl.h>
+#include <errno.h>
+
+/* exit.c */
+char *_strncpy(char *, char *, int);
+char *_strncat(char *, char *, int);
+char *_strchr(char *, char);
 
 #endif
