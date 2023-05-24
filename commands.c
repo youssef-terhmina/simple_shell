@@ -4,6 +4,7 @@
  * @cd: command used as example, the function should work on all bin commands
  * Return: command or NULL
  */
+
 char *cmd(char *cd)
 {
 	char *path = getit("PATH");
