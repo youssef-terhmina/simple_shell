@@ -10,4 +10,5 @@
 #include <string.h>
 #include <limits.h>
 int envhan(const char *store, const char *data);
+extern char **environ;
 #endif
