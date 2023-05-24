@@ -9,7 +9,7 @@ int envhan(const char *store, const char *data)
 {
 	int ndata = 0, i = 0, length = 0;/* ndata checks if new data shld overwrite */
 	char **env = environ; /* global variable */
-	char *temp, *dataloc; /* to allocate memory to store new data */
+	char *temp = NULL, *dataloc; /* to allocate memory to store new data */
 	int envlen = 0, datalen = 0;
 
 	if (*store != '\0')

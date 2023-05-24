@@ -11,4 +11,8 @@
 #include <limits.h>
 int envhan(const char *store, const char *data);
 extern char **environ;
+char *cmd(char *cd);
+char *getit(const char *var);
+char **simples(char *buff, char *d);
+int main(int argc, char **argv, char **env);
 #endif
