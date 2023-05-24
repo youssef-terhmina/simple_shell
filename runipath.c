@@ -1,9 +1,11 @@
 #include "head.h"
+
 /**
  * getit - to find path to bin where toget commands
  * @var: variable to find in path
  * Return: NULL
  */
+
 char *getit(const char *var)
 {
 	char **env = environ, *point; /* point is a pointer to the var in env array */
