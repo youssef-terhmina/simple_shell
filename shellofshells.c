@@ -13,7 +13,9 @@ int main(int argc, char **argv, char **env)
 	int check, numb, chars;
 	char *buffer = NULL;
 	char *command;
+	char **argument;
 	(void)argc;
+	(void)argv;
 
 	while (1)
 	{
@@ -25,17 +27,17 @@ int main(int argc, char **argv, char **env)
 			write(1, " \n", 2);
 			exit(1);
 		}
-		argv = simples(buffer, "\t \n");
+		argument = simples(buffer, "\t \n");
 
-		if (strcmp(argv[0], "exit") == 0)
+		if (strcmp(argument[0], "exit") == 0)
 			exit(0);
 
 		pid = fork();
-		if (pid)
+		if (pid == 0)
 		{
-			command = cmd(argv[0]);
+			command = cmd(argument[0]);
 			if (command != NULL)
-				execve(command, argv, env);
+				execve(command, argument, env);
 			else
 				perror("Not found\n");
 			exit(0);

@@ -10,6 +10,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
+<<<<<<< HEAD
 
 /* system getline() */
 #define USE_GETLINE 0
@@ -18,6 +19,9 @@
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
 
+=======
+int envhan(const char *store, const char *data, int ndata);
+>>>>>>> ab9bfd69a26c12beff922da3498178d861f0bb47
 extern char **environ;
 
 /* commands chaining */
