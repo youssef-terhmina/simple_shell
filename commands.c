@@ -7,13 +7,10 @@
 char *cmd(char *cd)
 {
 	char *path = getit("PATH");
-	char *tmp = NULL, *search = NULL, *adress = NULL;
+	char *tmp, *search, *adress;
 	struct stat check;
-	int checker;
 	int len, clen;
 
-	if (search == NULL)
-		return (NULL);
 	search = strtok(path, ":");
 	while (search != NULL)
 	{
@@ -25,8 +22,7 @@ char *cmd(char *cd)
 		strcat(tmp, "/");
 		strcat(tmp, cd);
 		strcat(adress, tmp);
-		checker = stat(adress, &check);
-		if (checker == 0)
+		if (stat(adress, &check) == 0)
 		{
 			free(tmp);
 			return (adress);

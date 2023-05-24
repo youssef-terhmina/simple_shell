@@ -14,9 +14,10 @@ char **simples(char *buff, char *d)
 
 	while (p != NULL)
 	{
-		parts[i++] = strdup(p);
+		parts[i] = p;
 		next = strtok(NULL, d); /* to continue strtok func */
 		p = next;
+		i++;
 	}
 	parts[i] = NULL;
 	return (parts);
