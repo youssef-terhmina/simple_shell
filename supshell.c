@@ -1,4 +1,5 @@
 #include "head.h"
+
 /**
  * envhan - handling env
  * @store: where data is stored
@@ -6,6 +7,7 @@
  * @ndata: checks if new data shld overwrite
  * Return: 0 or -1
  */
+
 int envhan(const char *store, const char *data, int ndata)
 {
 	int i = 0, length = 0;
