@@ -1,4 +1,5 @@
 #include "head.h"
+
 /**
  * main - the main function to create the shell and run it
  * @argc: arg count
@@ -6,6 +7,7 @@
  * @env: environ
  * Return: 0
  */
+
 int main(int argc, char **argv, char **env)
 {
 	size_t buffsize = 0;
