@@ -17,7 +17,7 @@ int main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		write(1, "# ", 2);
+		write(1, "$ ", 2);
 		chars = getline(&buffer, &buffsize, stdin);
 		numb = chars;
 		if (numb == -1)
@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **env)
 				execve(command, argv, env);
 			else
 				perror("Not found\n");
-			exit(1);
+			exit(0);
 		}
 		else
 			wait(&check);

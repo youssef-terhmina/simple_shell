@@ -16,7 +16,7 @@ char *getit(const char *var)
 		cont = point;
 		if (strcmp(point, var) == 0)
 		{
-			cont = (strtok(NULL, " "));
+			cont = (strtok(NULL, "="));
 			return (cont);
 		}
 		i++;

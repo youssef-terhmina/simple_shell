@@ -10,7 +10,7 @@ int envhan(const char *store, const char *data)
 	int ndata = 0, i = 0, length = 0;/* ndata checks if new data shld overwrite */
 	char **env = environ; /* global variable */
 	char *temp = NULL, *dataloc; /* to allocate memory to store new data */
-	int envlen = 0, datalen = 0;
+	int datalen = 0;
 
 	if (*store != '\0')
 	{
@@ -19,27 +19,23 @@ int envhan(const char *store, const char *data)
 			while (env[i] != NULL)
 			{
 				length = strlen(store);
-				envlen = strlen(env[i]);
 				datalen = (strlen(data) + 1);
-				if (length == envlen)
+				if (strncmp(env[i], store, length) == 0 && env[i][length] == '=')
 				{
-					if (ndata != '\0')
-					{
-						dataloc = malloc(length + datalen + 1);
-						strcpy(dataloc, store);
-						strcat(temp, "="), strcat(temp, store);
-						strcat(dataloc, temp);
-						env[i] = dataloc;
-						return (0);
-					}
-					return (0);
+					ndata = 1;
+					break;
 				}
 				i++;
 			}
-			dataloc = malloc(length + datalen + 1);
-			strcpy(dataloc, store);
-			strcat(temp, "="), strcat(temp, store), strcat(dataloc, temp);
-			env[i] = dataloc;
+			if (ndata != '\0')
+			{
+				dataloc = malloc(length + datalen + 1);
+				strcpy(dataloc, store);
+				strcat(temp, "="), strcat(temp, store);
+				strcat(dataloc, temp);
+				env[i] = dataloc;
+				return (0);
+			}
 			return (0);
 		}
 		return (-1);
