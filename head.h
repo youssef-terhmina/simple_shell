@@ -6,8 +6,8 @@
 #include <limits.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-#include <sys/stats.h>
+#include <sys/stat.h>
 #include <string.h>
 #include <limits.h>
-
+int envhan(const char *store, const char *data);
 #endif
