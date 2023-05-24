@@ -1,2 +1,2 @@
-Directory made for the project named :
+Directory made for the team project named :
 Simple Shell
