@@ -26,9 +26,7 @@ int main(int argc, char **argv, char **env)
 			exit(1);
 		}
 		argv = simples(buffer, "\t \n");
-	}
-	while (1)
-	{
+
 		if (strcmp(argv[0], "exit") == 0)
 			exit(0);
 
@@ -45,6 +43,5 @@ int main(int argc, char **argv, char **env)
 		else
 			wait(&check);
 	}
-	free(buffer);
 	return (0);
 }
