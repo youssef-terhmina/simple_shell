@@ -8,28 +8,19 @@
 char *cmd(char *cd)
 {
 	char *path = getit("PATH");
-	char *tmp = NULL, *search, *adress = NULL;
+	char *search, *adress, *tmp;
 	struct stat check;
-	int len, clen;
 
 	search = strtok(path, ":");
 	while (search != NULL)
 	{
-		len = strlen(search);
-		clen = strlen(cd);
-		tmp = malloc(len + clen + 2);
-		adress = malloc(len + clen + 2);
-		if (tmp == NULL || adress == NULL)
-		{
-			perror("Memory allocation failed");
-			return (NULL);
-		}
+		adress = malloc(strlen(search) + strlen(cd) + 2);
+		tmp = malloc(strlen(search) + strlen(cd) + 2);
 		strcpy(adress, search);
 		strcat(tmp, "/");
 		strcat(tmp, cd);
 		strcat(adress, tmp);
-		if (stat(adress, &check) >= 0 &&
-			       S_ISREG(check.st_mode) && (check.st_mode & S_IXUSR))
+		if (stat(adress, &check) == 0)
 		{
 			free(tmp);
 			return (adress);
