@@ -20,11 +20,10 @@ int main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", 2);
 		chars = getline(&buffer, &buffsize, stdin);
 		if (chars == -1)
 		{
-			write(STDOUT_FILENO, " \n", 2);
+			write(1, " \n", 2);
 			exit(EXIT_SUCCESS);
 		}
 		buffer[chars - 1] = '\0';

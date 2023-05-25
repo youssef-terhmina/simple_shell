@@ -14,8 +14,8 @@ char *cmd(char *cd)
 	search = strtok(path, ":");
 	while (search != NULL)
 	{
-		adress = malloc(strlen(search) + strlen(cd) + 2);
-		tmp = malloc(strlen(search) + strlen(cd) + 2);
+		adress = malloc(strlen(search) + strlen(cd));
+		tmp = malloc(strlen(search) + strlen(cd));
 		strcpy(adress, search);
 		strcat(tmp, "/");
 		strcat(tmp, cd);
