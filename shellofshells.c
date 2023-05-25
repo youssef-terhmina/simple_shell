@@ -23,7 +23,6 @@ int main(int argc, char **argv, char **env)
 		chars = getline(&buffer, &buffsize, stdin);
 		if (chars == -1)
 		{
-			write(1, " \n", 2);
 			exit(EXIT_SUCCESS);
 		}
 		buffer[chars - 1] = '\0';
