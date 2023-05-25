@@ -54,6 +54,7 @@ typedef struct builtin
 #define READ_BUF_SIZE 1024
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+int _getline_helper(char **lineptr, size_t *n);
 
 /* builtin1.c */
 
