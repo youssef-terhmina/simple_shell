@@ -12,7 +12,7 @@ int envhan(const char *store, const char *data, int ndata)
 {
 	int i = 0, length = 0;
 	char **env = environ; /* global variable */
-	char *temp = NULL, *dataloc; /* to allocate memory to store new data */
+	char *dataloc; /* to allocate memory to store new data */
 	int datalen = 0;
 
 	if (*store != '\0')
@@ -21,16 +21,21 @@ int envhan(const char *store, const char *data, int ndata)
 		{
 			while (env[i] != NULL)
 			{
-				length = strlen(store);
+				length = strlen(env[i]);
 				datalen = (strlen(data) + 1);
 				if (strncmp(env[i], store, length) == 0)
 				{
 					if (ndata != '\0')
 					{
 						dataloc = malloc(length + datalen + 1);
+						if (dataloc == NULL)
+						{
+							perror("Memory allocation failed");
+							return (-1);
+						}
 						strcpy(dataloc, store);
-						strcat(temp, "="), strcat(temp, store);
-						strcat(dataloc, temp);
+						strcat(dataloc, "=");
+						strcat(dataloc, data);
 						env[i] = dataloc;
 						return (0);
 					}
@@ -39,10 +44,14 @@ int envhan(const char *store, const char *data, int ndata)
 				i++;
 			}
 			dataloc = malloc(strlen(store) + strlen(data) + 2);
+			if (dataloc == NULL)
+			{
+				perror("Memory allocation failed");
+				return -1;
+			}
 			strcpy(dataloc, store);
-			strcat(temp, "=");
-			strcat(temp, store);
-			strcat(dataloc, temp);
+			strcat(dataloc, "=");
+			strcat(dataloc, data);
 			env[i] = dataloc;
 			env[i + 1] = NULL;
 		}
