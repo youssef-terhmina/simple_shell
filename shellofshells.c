@@ -25,12 +25,12 @@ int main(int argc, char **argv, char **env)
 		if (chars == -1)
 		{
 			write(STDOUT_FILENO, " \n", 2);
-			exit(1);
+			exit(EXIT_SUCCESS);
 		}
 		buffer[chars - 1] = '\0';
 		argument = simples(buffer, "\t \n");
 		if (strcmp(argument[0], "exit") == 0)
-			exit(0);
+			exit(EXIT_SUCCESS);
 		pid = fork();
 		if (pid == 0)
 		{
@@ -39,7 +39,7 @@ int main(int argc, char **argv, char **env)
 				execve(command, argument, env), exit(1);
 			else
 				perror("Not found\n");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		else
 			wait(&check);

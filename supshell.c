@@ -27,6 +27,7 @@ int envhan(const char *store, const char *data, int ndata)
 				{
 					if (ndata != '\0')
 					{
+						free(env[i]);
 						dataloc = malloc(length + datalen + 1);
 						strcpy(dataloc, store);
 						strcat(dataloc, "=");

@@ -23,4 +23,5 @@ char **simples(char *buff, char *d)
 	}
 	parts[i] = NULL;
 	return (parts);
+	free(parts);
 }
