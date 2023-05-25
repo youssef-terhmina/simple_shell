@@ -28,11 +28,6 @@ int envhan(const char *store, const char *data, int ndata)
 					if (ndata != '\0')
 					{
 						dataloc = malloc(length + datalen + 1);
-						if (dataloc == NULL)
-						{
-							perror("Memory allocation failed");
-							return (-1);
-						}
 						strcpy(dataloc, store);
 						strcat(dataloc, "=");
 						strcat(dataloc, data);
@@ -44,11 +39,6 @@ int envhan(const char *store, const char *data, int ndata)
 				i++;
 			}
 			dataloc = malloc(strlen(store) + strlen(data) + 2);
-			if (dataloc == NULL)
-			{
-				perror("Memory allocation failed");
-				return -1;
-			}
 			strcpy(dataloc, store);
 			strcat(dataloc, "=");
 			strcat(dataloc, data);
