@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **env)
 		{
 			command = cmd(argument[0]);
 			if (command != NULL)
-				execve(command, argument, env), exit(1);
+				execve(command, argument, env);
 			else
 				perror("Not found\n");
 			exit(EXIT_FAILURE);
