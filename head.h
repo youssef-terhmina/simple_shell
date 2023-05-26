@@ -72,6 +72,8 @@ void builtin_cd(data *d);
 
 char *_getenv(char *name);
 int _which(data *d);
+char *create_new_entry(char *name, char *value)
+char **_new_environ(char *name, char *value)
 int _setenv(data *d, char *name, char *value);
 
 /* prexec.c */
