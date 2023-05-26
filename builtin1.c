@@ -97,7 +97,7 @@ void unsetenv(value *v)
 	(void)v;
 	if (!v->av[1] || !getenv(v->av[1]))
 	{
-		_perror(v->shell_name, "variable not found.");
+		_perror(v->name, "variable not found.");
 		return;
 	}
 	l = strlen(v->av[1]);

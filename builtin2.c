@@ -1,28 +1,28 @@
 #include "head.h"
 
 /**
- * builtin_cd - changes directory
- * @d: data struct input
+ * cd - changes dir
+ * @v: input
  * Return: nothing
  */
 
-void builtin_cd(data *d)
+void cd(value *v)
 {
-	char *dir = d->av[1];
-	char cwd[256];
+	char *di = v->av[1];
+	char cw[256];
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	if (getcwd(cw, sizeof(cw)) == NULL)
 		perror("getcwd() error");
-	_setenv(d, "PWD", cwd);
-	if (!dir)
-		dir = _getenv("HOME");
-	if (chdir(dir) == -1)
+	_setenv(v, "PWD", cw);
+	if (!di)
+		di = _getenv("HOME");
+	if (chdir(di) == -1)
 		perror("cd");
 	else
 	{
-		_setenv(d, "OLDPWD", _getenv("PWD"));
-		if (getcwd(cwd, sizeof(cwd)) == NULL)
+		_setenv(v, "OLDPWD", _getenv("PWD"));
+		if (getcwd(cw, sizeof(cw)) == NULL)
 			perror("getcwd() error");
-		_setenv(d, "PWD", cwd);
+		_setenv(v, "PWD", cw);
 	}
 }
