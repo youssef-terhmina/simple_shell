@@ -1,169 +1,169 @@
 #include "head.h"
 
 /**
- * _getenv - retrieves value of an environment variable
+ * _getenv - value of environment
  * @name: str input
- * Return: value of an environment variable
+ * Return: value of environment
  */
 
 char *_getenv(char *name)
 {
-	int i = -1;
-	size_t name_len;
+	int x = -1;
+	size_t namel;
 
 	if (name == NULL || *name == '\0')
 		return (NULL);
 	if (environ == NULL)
 		return (NULL);
 
-	name_len = _strlen(name);
+	namel = _strlen(name);
 
-	while (environ[++i])
+	while (environ[++x])
 	{
-		if (!_strncmp(environ[i], name, name_len) && environ[i][name_len] == '=')
+		if (!_strncmp(environ[x], name, namel) && environ[x][namel] == '=')
 		{
-			return (environ[i] + name_len + 1);
+			return (environ[x] + namel + 1);
 		}
 	}
 	return (NULL);
 }
 
 /**
- * _which - locates executable file associated with a given cmd.
- * @d: str input
+ * _which - locates executable file
+ * @v: input
  * Return: nothing
  */
 
-int _which(data *d)
+int _which(value *v)
 {
-	char *token, *path,
-		*paths = malloc(_strlen(_getenv("PATH") ? _getenv("PATH") : "") + 1);
-	size_t token_len;
+	char *tkn, *pth,
+		*pths = malloc(_strlen(_getenv("PATH") ? _getenv("PATH") : "") + 1);
+	size_t tokenl;
 	int find = -1;
 
 	if (!_getenv("PATH"))
 		goto step_out;
-	_strcpy(paths, _getenv("PATH"));
-	if (paths == NULL)
+	_strcpy(pths, _getenv("PATH"));
+	if (pths == NULL)
 		goto step_out;
-	token = strtok(paths, ":");
-	while (token)
+	tkn = strtok(pths, ":");
+	while (tkn)
 	{
-		token_len = _strlen(token) + _strlen(d->av[0]) + 2;
-		path = malloc(token_len);
-		if (path == NULL)
+		tokenl = _strlen(tkn) + _strlen(v->av[0]) + 2;
+		pth = malloc(tokenl);
+		if (pth == NULL)
 			return (find);
-		_strcpy(path, token);
-		_strcat(path, "/");
-		_strcat(path, d->av[0]);
-		if (access(path, F_OK) == 0)
+		_strcpy(pth, tkn);
+		_strcat(pth, "/");
+		_strcat(pth, v->av[0]);
+		if (access(pth, F_OK) == 0)
 		{
-			free(d->av[0]);
-			d->av[0] = _strdup(path);
-			free(path);
+			free(v->av[0]);
+			v->av[0] = _strdup(pth);
+			free(pth);
 			find = 0;
 			break;
 		}
-		free(path);
-		token = strtok(NULL, ":");
+		free(pth);
+		tkn = strtok(NULL, ":");
 	}
 step_out:
-	free(paths);
+	free(pths);
 	return (find);
 }
 
 /**
- * create_new_entry - Initializes new environment variable/modify existing one
+ * create_entry - Initializes new environment
  * @name: variable name
- * @value: variable value
+ * @dt: variable value
  * Return: nothing
  */
 
-char *create_new_entry(char *name, char *value)
+char *create_entry(char *name, char *dt)
 {
-	size_t new_len = strlen(name) + strlen(value) + 2;
-	char *new_entry = malloc(new_len);
+	size_t newl = strlen(name) + strlen(dt) + 2;
+	char *new_ent = malloc(newl);
 
-	if (new_entry == NULL)
+	if (new_ent == NULL)
 		return (NULL);
 
-	strcpy(new_entry, name);
-	strcat(new_entry, "=");
-	strcat(new_entry, value);
+	strcpy(new_ent, name);
+	strcat(new_ent, "=");
+	strcat(new_ent, dt);
 
-	return (new_entry);
+	return (new_ent);
 }
 /**
- * _new_environ - Initializes new environment variable/modify existing one
+ * _new_environ - Initializes new environment
  * @name: variable name
- * @value: variable value
+ * @dt: variable value
  * Return: nothing
  */
 
-char **_new_environ(char *name, char *value)
+char **_new_environ(char *name, char *dt)
 {
-	int env_len = 0, i = 0;
-	char *new_entry;
-	char **new_environ;
+	int envl = 0, x = 0;
+	char *new_ent;
+	char **new_env;
 
-	while (environ[env_len])
-		env_len++;
-	new_entry = create_new_entry(name, value);
-	if (new_entry == NULL)
+	while (environ[envl])
+		envl++;
+	new_ent = create_entry(name, dt);
+	if (new_ent == NULL)
 		return (NULL);
-	new_environ = _getenv(name) ? malloc((env_len + 1) * sizeof(char *))
-								: malloc((env_len + 2) * sizeof(char *));
+	new_env = _getenv(name) ? malloc((envl + 1) * sizeof(char *))
+								: malloc((envl + 2) * sizeof(char *));
 
-	if (!new_environ)
+	if (!new_env)
 	{
-		free(new_entry);
+		free(new_ent);
 		return (NULL);
 	}
-	for (i = 0; environ[i]; i++)
+	for (x = 0; environ[x]; x++)
 	{
-		new_environ[i] = malloc(strlen(environ[i]) + 1);
-		if (!new_environ[i])
+		new_env[x] = malloc(strlen(environ[x]) + 1);
+		if (!new_env[x])
 		{
-			free_array(new_environ);
-			free(new_entry);
+			free_array(new_env);
+			free(new_ent);
 			return (NULL);
 		}
-		if (strncmp(environ[i], name, strlen(name)) == 0
-		&& environ[i][strlen(name)] == '=')
-			strcpy(new_environ[i], new_entry);
+		if (strncmp(environ[x], name, strlen(name)) == 0
+		&& environ[x][strlen(name)] == '=')
+			strcpy(new_env[x], new_ent);
 		else
-			strcpy(new_environ[i], environ[i]);
+			strcpy(new_env[x], environ[x]);
 	}
 	if (!_getenv(name))
 	{
-		new_environ[env_len] = new_entry;
-		new_environ[env_len + 1] = NULL;
+		new_env[envl] = new_ent;
+		new_env[envl + 1] = NULL;
 	}
 	else
-		new_environ[env_len] = NULL;
-	return (new_environ);
+		new_env[envl] = NULL;
+	return (new_env);
 }
 
 /**
- * _setenv - Initializes new environment variable/modify existing one
- * @d: to use flag
+ * _setenv - Initializes new environment
+ * @v: flag
  * @name: variable name
- * @value: variable value
+ * @dt: variable value
  * Return: nothing
  */
 
-int _setenv(data *d, char *name, char *value)
+int _setenv(value *v, char *name, char *dt)
 {
-	char **new_environ;
+	char **new_env;
 
-	if (!name || !value)
+	if (!name || !dt)
 		return (-1);
 
-	new_environ = _new_environ(name, value);
-	if (!new_environ)
+	new_env = _new_env(name, dt);
+	if (!new_env)
 		return (-1);
-	environ = new_environ;
-	d->flag_setenv = 1;
+	environ = new_env;
+	v->flags = 1;
 
 	return (0);
 }
