@@ -102,7 +102,7 @@ void unsetenv(value *v)
 	}
 	l = strlen(v->av[1]);
 	for (x = 0; environ[x]; x++)
-		if (strncmp(environ[x], x->av[1], l) == 0 && environ[x][l] == '=')
+		if (strncmp(environ[x], v->av[1], l) == 0 && environ[x][l] == '=')
 			for (y = x; environ[y]; y++)
 				environ[y] = environ[y + 1];
 }
