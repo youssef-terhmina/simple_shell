@@ -1,41 +1,41 @@
 #include "head.h"
 
 /**
- * start_process - starts new process
- * @d: data struct input
+ * start - starts new process
+ * @v: input
  * Return: nothing
  */
 
-void start_process(data *d)
+void start(value *v)
 {
-	pid_t child_pid = fork();
-	int status = 0;
+	pid_t child_p = fork();
+	int stat = 0;
 
-	if (child_pid == -1)
+	if (child_p == -1)
 		goto free;
-	if (child_pid == 0 && execve(d->av[0], d->av, NULL) == -1)
+	if (child_p == 0 && execve(v->av[0], v->av, NULL) == -1)
 		goto free;
-	else if (wait(&status) == -1)
+	else if (wait(&stat) == -1)
 		goto free;
-	if (WIFEXITED(status))
-		d->last_exit_status = WEXITSTATUS(status);
+	if (WIFEXITED(stat))
+		v->exits = WEXITSTATUS(status);
 	return;
 free:
-	perror(d->shell_name);
-	free_array(d->av);
-	free(d->cmd);
+	perror(v->name);
+	free_array(v->av);
+	free(v->cmd);
 	exit(EXIT_FAILURE);
 }
 
 /**
- * handler_sigint - Signal handler fnct
- * @signal: int input
+ * hansig - Signal handler fnct
+ * @sig: input
  * Return: nothing
  */
 
-void handler_sigint(int signal)
+void hansig(int sig)
 {
-	(void)signal;
+	(void)sig;
 	exit(EXIT_FAILURE);
 }
 
@@ -45,11 +45,11 @@ void handler_sigint(int signal)
  * Return: nothing
  */
 
-void _exec(data *d)
+void _exec(value *v)
 {
 	const char prompt[] = PROMPT;
 
-	signal(SIGINT, handler_sigint);
+	signal(SIGINT, hansig);
 
 	while (1)
 	{
@@ -57,23 +57,23 @@ void _exec(data *d)
 			_printf(prompt);
 
 		read_cmd(d);
-		if (_strlen(d->cmd) != 0)
+		if (_strlen(v->cmd) != 0)
 		{
-			split(d, " ");
-			if (!exec_builtin(d))
+			split(v, " ");
+			if (!excve(v))
 			{
-				_which(d);
-				if (access(d->av[0], F_OK) == -1)
+				_which(v);
+				if (access(v->av[0], F_OK) == -1)
 				{
-					perror(d->shell_name);
+					perror(v->name);
 				}
 				else
 				{
-					start_process(d);
+					start_process(v);
 				}
 			}
-			free_array(d->av);
+			free_array(v->av);
 		}
-		free(d->cmd);
+		free(v->cmd);
 	}
 }
