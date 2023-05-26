@@ -1,6 +1,5 @@
 #ifndef HEAD_H
 #define HEAD_H
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,103 +10,61 @@
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
-
-int envhan(const char *store, const char *data, int ndata);
-extern char **environ;
-char *cmd(char *cd);
-char *getit(const char *var);
-char **simples(char *buff, char *d);
-int main(int argc, char **argv, char **env);
-
+#include <signal.h>
+#define BUFSIZE 1024
 /**
- * struct data - holds main data.
- * @av: Array of tokens to pass for execve
- * @cmd: The user input, the command line
- * @shell_name: The name of shell program
- * @last_exit_status: last exit status of last cmd executed
- * @flag_setenv: 1 if user did exec setenv
+ * struct value - enters value
+ * @av: array
+ * @cmd: command
+ * @name: name of the shell
+ * @exits: s for status
+ * @flags: s for setenv
  */
-
-typedef struct data
+typedef struct value
 {
+	int exits;
+	int flags;
 	char **av;
+	const char *name;
 	char *cmd;
-	const char *shell_name;
-	int last_exit_status;
-	int flag_setenv;
-} data;
-
+} value;
 /**
- * struct builtin - holds main data.
- * @cmd: built in cmd
- * @f: fnct of builtin cmd
+ * struct coma - holding commands
+ * @cmd: command
+ * @f: function pointer
  */
-
-typedef struct builtin
+typedef struct coma
 {
+	void (*f)(value *v);
 	const char *cmd;
-	void (*f)(data *d);
-} builtin;
-
-/* getline.c */
-
-#define READ_BUF_SIZE 1024
-
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-int _getline_helper(char **lineptr, size_t *n);
-
-/* builtin1.c */
-
-int exec_builtin(data *d);
-void builtin_exit(data *d);
-void builtin_env(data *d);
-void builtin_setenv(data *d);
-void builtin_unsetenv(data *d);
-
-/* builtin2.c */
-
-void builtin_cd(data *d);
-
-/* env.c */
-
-char *_getenv(char *name);
-int _which(data *d);
-char *create_new_entry(char *name, char *value)
-char **_new_environ(char *name, char *value)
-int _setenv(data *d, char *name, char *value);
-
-/* prexec.c */
-
-void start_process(data *d);
-void handler_sigint(int sig);
-void _exec(data *d);
-
-/* str1.c */
-
-unsigned int _strlen(char *str);
-int _strcmp(const char *s1, const char *s2);
-int _strncmp(const char *s1, const char *s2, int n);
-char *_strcpy(char *dest, const char *src);
-char *_strcat(char *dest, const char *src);
-
-/* str2.c */
-
-char *_strdup(const char *str);
-int _isnumber(const char *status);
-int _isdigit(int c);
-
-/* help1.c */
-
-void _printf(const char *str);
-void free_array(char **array);
-void split(data *d, const char *delim);
-void init_data(data *d, const char *shell_name);
-void read_cmd(data *d);
-
-/* help2.c */
-
-void _perror(const char *str1, const char *str2);
+} coma;
+int excve(value *v);
+void _printf(const char *s);
+void exit(value *v);
+void env(value *v);
+void setenv(value *v);
+void unsentenv(value *v);
+void cd(value *v);
+extern char **environ;
+void freea(char **a);
+void simplif(value *v, const char *d);
+void init(value *v, const char *name);
+void getcmd(value *v);
+void _perror(const char *str, const char *string);
 void _trim(char *str);
-void *_realloc(void *ptr, unsigned int new_size);
-
+void *_realloc(void *ptr, unsigned int nsize);
+void start(value *v);
+void hansig(int sig);
+void _exec(value *v);
+char *_getenv(char *name);
+int _which(value *v);
+int _setenv(value *v, char *name, char *data);
+unsigned int _strlen(char *name);
+char *_strcpy(char *de, const char *sr);
+char *_strcat(char *de, const char *sr);
+int _strncmp(const char *s, const char *ss, int x);
+int _strcmp(const char *s, const char *ss);
+char *_strdup(const char *string);
+int _isdigit(int c);
+int _isnumber(const char *stat);
 #endif
