@@ -1,28 +1,28 @@
 #include "head.h"
 
 /**
- * exec_builtin - check if built in & then exec
- * @d: data struct input
- * Return: 1 if built in, 0 if not
+ * excve - check & exec
+ * @v: input
+ * Return: 1 or 0
  */
 
-int exec_builtin(data *d)
+int excve(value *v)
 {
 	builtin builtin[] = {
-		{"exit", builtin_exit},
-		{"env", builtin_env},
-		{"setenv", builtin_setenv},
-		{"unsetenv", builtin_unsetenv},
-		{"cd", builtin_cd},
+		{"exit", exit},
+		{"env", env},
+		{"setenv", setenv},
+		{"unsetenv", unsetenv},
+		{"cd", cd},
 		{NULL, NULL},
 	};
-	int i = 0;
+	int x;
 
-	for (i = 0; builtin[i].cmd; i++)
+	for (x = 0; builtin[x].cmd; x++)
 	{
-		if (_strcmp(d->av[0], builtin[i].cmd) == 0)
+		if (_strcmp(v->av[0], builtin[x].cmd) == 0)
 		{
-			builtin[i].f(d);
+			builtin[x].f(v);
 			return (1);
 		}
 	}
@@ -30,53 +30,53 @@ int exec_builtin(data *d)
 }
 
 /**
- * builtin_exit - exits the shell
- * @d: data struct input
- * Return: void
- */
-
-void builtin_exit(data *d)
-{
-	if (d->av[1] && _isnumber(d->av[1]))
-		d->last_exit_status = atoi(d->av[1]);
-	free_array(d->av);
-	free(d->cmd);
-	if (d->flag_setenv)
-		free_array(environ);
-	exit(d->last_exit_status);
-}
-
-/**
- * builtin_env - prints current environment
- * @d: data struct input
+ * exit - exit shell
+ * @v: input
  * Return: nothing
  */
 
-void builtin_env(data *d)
+void exit(value *v)
 {
-	int i = 0;
+	if (v->av[1] && _isnumber(v->av[1]))
+		v->exits = atoi(v->av[1]);
+	free_array(v->av);
+	free(v->cmd);
+	if (v->flags)
+		free_array(environ);
+	exit(v->exits);
+}
 
-	(void)d;
-	while (environ[i])
+/**
+ * env - current environment
+ * @v: input
+ * Return: nothing
+ */
+
+void env(value *v)
+{
+	int x =	0;
+
+	(void)v;
+	while (environ[x])
 	{
-		_printf(environ[i]);
+		_printf(environ[x]);
 		_printf("\n");
-		i++;
+		x++;
 	}
 }
 
 /**
- * builtin_setenv - Initialize new environment variable/modify an existing one
- * @d: data struct input
+ * setenv - Initialize new environment
+ * @v: input
  * Return: nothing
  */
 
-void builtin_setenv(data *d)
+void setenv(value *v)
 {
-	(void)d;
-	if (d->av[1] && d->av[2])
+	(void)v;
+	if (v->av[1] && v->av[2])
 	{
-		if (_setenv(d, d->av[1], d->av[2]) == -1)
+		if (_setenv(v, v->av[1], v->av[2]) == -1)
 		{
 			perror("setenv");
 		}
@@ -84,26 +84,26 @@ void builtin_setenv(data *d)
 }
 
 /**
- * builtin_unsetenv - Remove an environment variable
- * @d: data struct input
+ * unsetenv - Remove environment
+ * @v: input
  * Return: nothing
  */
 
-void builtin_unsetenv(data *d)
+void unsetenv(value *v)
 {
-	int i, j;
-	int len;
+	int x, y;
+	int l;
 
-	(void)d;
-	if (!d->av[1] || !getenv(d->av[1]))
+	(void)v;
+	if (!v->av[1] || !getenv(v->av[1]))
 	{
-		_perror(d->shell_name, "variable not found.");
+		_perror(v->shell_name, "variable not found.");
 		return;
 	}
-	len = strlen(d->av[1]);
-	for (i = 0; environ[i]; i++)
-		if (strncmp(environ[i], d->av[1], len) == 0 && environ[i][len] == '=')
-			for (j = i; environ[j]; j++)
-				environ[j] = environ[j + 1];
+	l = strlen(v->av[1]);
+	for (x = 0; environ[x]; x++)
+		if (strncmp(environ[x], x->av[1], l) == 0 && environ[x][l] == '=')
+			for (y = x; environ[y]; y++)
+				environ[y] = environ[y + 1];
 }
 
