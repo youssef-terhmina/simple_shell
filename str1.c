@@ -8,112 +8,112 @@
 
 unsigned int _strlen(char *str)
 {
-	unsigned int i;
+	unsigned int x;
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (x = 0; str[x] != '\0'; x++)
 		;
-	return (i);
+	return (x);
 }
 
 
 /**
  * _strcmp - compares 2 str
- * @s1: input const str
- * @s2: input const str
+ * @s: input const str
+ * @ss: input const str
  * Return: returns an int indicating result of the comparison as follows:
- *		• 0, if s1 & s2 are equal
- *		• a negative value if s1 is less than s2
- *		• a positive value if s1 is greater than s2
+ *		• 0, if s & ss are equal
+ *		• a negative value if s is less than ss
+ *		• a positive value if s is greater than ss
  */
 
-int _strcmp(const char *s1, const char *s2)
+int _strcmp(const char *s, const char *ss)
 {
-	int i;
-	int res = 0;
+	int x;
+	int re = 0;
 
-	for (i = 0; s1[i] != '\0' && s2[i] != '\0'; i++)
+	for (x = 0; s[x] != '\0' && ss[x] != '\0'; x++)
 	{
-		if (s1[i] != s2[i])
+		if (s[x] != ss[x])
 		{
-			res = s1[i] - s2[i];
+			re = s[x] - ss[x];
 			break;
 		}
 	}
 
-	return (res);
+	return (re);
 }
 
 /**
  * _strncmp - compares 2 str
- * @s1: input const string
- * @s2: input const string
+ * @s: input const string
+ * @ss: input const string
  * @n: input int
  * Return: returns an int indicating result of the comparison as follows:
- *		• 0, if s1 & s2 are equal
- *		• a negative value if s1 is less than s2
- *		• a positive value if s1 is greater than s2
+ *		• 0, if s & ss are equal
+ *		• a negative value if s is less than ss
+ *		• a positive value if s is greater than ss
  */
 
-int _strncmp(const char *s1, const char *s2, int n)
+int _strncmp(const char *s, const char *ss, int n)
 {
-	int i;
-	int res = 0;
+	int x;
+	int re = 0;
 
-	for (i = 0; s1[i] != '\0' && s2[i] != '\0'; i++)
+	for (x = 0; s[x] != '\0' && ss[x] != '\0'; x++)
 	{
 
-		if (i >= n)
+		if (x >= n)
 			break;
-		if (s1[i] != s2[i])
+		if (s[x] != ss[x])
 		{
-			res = s1[i] - s2[i];
+			re = s[x] - ss[x];
 			break;
 		}
 	}
 
-	return (res);
+	return (re);
 }
 
 /**
  * _strcpy - copy src to dest
- * @dest: input char *
- * @src: input const char *
+ * @de: input char *
+ * @sr: input const char *
  * Return: char *
  */
 
-char *_strcpy(char *dest, const char *src)
+char *_strcpy(char *de, const char *sr)
 {
-	int len;
+	int l;
 
-	for (len = 0; src[len] != '\0'; ++len)
+	for (l = 0; sr[l] != '\0'; ++l)
 	{
-		dest[len] = src[len];
+		de[l] = sr[l];
 	}
-	dest[len] = '\0';
-	return (dest);
+	de[l] = '\0';
+	return (de);
 }
 
 /**
  * _strcat - appends src str to dest str
- * @dest: input str
- * @src: input const str
+ * @de: input str
+ * @sr: input const str
  * Return: nothing
  */
 
-char *_strcat(char *dest, const char *src)
+char *_strcat(char *de, const char *sr)
 {
-	char *result = dest;
+	char *resu = de;
 
-	while (*dest != '\0')
-		dest++;
+	while (*de != '\0')
+		de++;
 
-	while (*src != '\0')
+	while (*sr != '\0')
 	{
-		*dest = *src;
-		dest++;
-		src++;
+		*de = *sr;
+		de++;
+		sr++;
 	}
-	*dest = '\0';
+	*de = '\0';
 
-	return (result);
+	return (resu);
 }

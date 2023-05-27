@@ -18,7 +18,7 @@ void start(value *v)
 	else if (wait(&stat) == -1)
 		goto free;
 	if (WIFEXITED(stat))
-		v->exits = WEXITSTATUS(status);
+		v->exits = WEXITSTATUS(stat);
 	return;
 free:
 	perror(v->name);
@@ -41,7 +41,7 @@ void hansig(int sig)
 
 /**
  * _exec - exectutes cmd
- * @d: data struct input
+ * @v: data struct input
  * Return: nothing
  */
 
@@ -56,7 +56,7 @@ void _exec(value *v)
 		if (isatty(STDIN_FILENO))
 			_printf(prompt);
 
-		read_cmd(d);
+		read_cmd(v);
 		if (_strlen(v->cmd) != 0)
 		{
 			split(v, " ");
@@ -69,7 +69,7 @@ void _exec(value *v)
 				}
 				else
 				{
-					start_process(v);
+					start(v);
 				}
 			}
 			free_array(v->av);
