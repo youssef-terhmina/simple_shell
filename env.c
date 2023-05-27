@@ -159,7 +159,7 @@ int _setenv(value *v, char *name, char *dt)
 	if (!name || !dt)
 		return (-1);
 
-	new_env = _new_env(name, dt);
+	new_env = _new_environ(name, dt);
 	if (!new_env)
 		return (-1);
 	environ = new_env;
