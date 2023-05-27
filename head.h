@@ -23,19 +23,19 @@ int main(int argc, char **argv);
  * struct data - holds main data.
  * @av: Array of tokens to pass for execve
  * @cmd: The user input, the command line
- * @shell_name: The name of shell program
- * @last_exit_status: last exit status of last cmd executed
- * @flag_setenv: 1 if user did exec setenv
+ * @name: The name of shell program
+ * @exits: last exit status of last cmd executed
+ * @flags: 1 if user did exec setenv
  */
 
-typedef struct data
+typedef struct value
 {
 	char **av;
 	char *cmd;
-	const char *shell_name;
-	int last_exit_status;
-	int flag_setenv;
-} data;
+	const char *name;
+	int exits;
+	int flags;
+} value;
 
 /**
  * struct builtin - holds main data.
@@ -46,15 +46,15 @@ typedef struct data
 typedef struct builtin
 {
 	const char *cmd;
-	void (*f)(data *d);
+	void (*f)(value *v);
 } builtin;
 
 /* getline.c */
 
-#define READ_BUF_SIZE 1024
+#define BUFSIZE 1024
 
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-int _getline_helper(char **lineptr, size_t *n);
+ssize_t _getline(char **linep, size_t *n, FILE *strm);
+int _getlineh(char **linep, size_t *n);
 
 /* builtin1.c */
 
