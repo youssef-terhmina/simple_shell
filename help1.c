@@ -17,7 +17,7 @@ void _printf(const char *s)
 }
 
 /**
- * free_array - free an array of pointers
+ * freea - free an array of pointers
  * @a: array of pointers
  * Return: void
  */
@@ -83,7 +83,7 @@ free:
  * init - init data
  * @v: data struct input
  * @name: string input
- * Return: void
+ * Return: nothing
  */
 
 void init(value *v, const char *name)
@@ -98,13 +98,14 @@ void init(value *v, const char *name)
 /**
  * getcmd - get the commend from the prompt and structure it into data struct
  * @v: data struct input
- * Return: void
+ * Return: nothing
  */
+
 void getcmd(value *v)
 {
 	size_t n = 0;
 	ssize_t get;
-	int i = 0;
+	int x = 0;
 
 	get = _getline(&v->cmd, &n, stdin);
 
@@ -116,11 +117,11 @@ void getcmd(value *v)
 
 	v->cmd[get - 1] = '\0';
 	_trim(v->cmd);
-	for (i = 0; v->cmd[i] != '\0'; i++)
+	for (x = 0; v->cmd[x] != '\0'; x++)
 	{
-		if (v->cmd[0] == '#' || (v->cmd[i] == '#' && v->cmd[i - 1] == ' '))
+		if (v->cmd[0] == '#' || (v->cmd[x] == '#' && v->cmd[i - 1] == ' '))
 		{
-			v->cmd[i] = '\0';
+			v->cmd[x] = '\0';
 			break;
 		}
 	}
