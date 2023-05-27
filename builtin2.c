@@ -1,12 +1,12 @@
 #include "head.h"
 
 /**
- * cd - changes dir
+ * gcd - changes dir
  * @v: input
  * Return: nothing
  */
 
-void cd(value *v)
+void gcd(value *v)
 {
 	char *di = v->av[1];
 	char cw[256];

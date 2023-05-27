@@ -37,7 +37,7 @@ void _perror(const char *str, const char *string)
 
 void _trim(char *str)
 {
-	int x, y, len = _strlen(str);
+	int x, y, l = _strlen(str);
 
 	for (x = 0; x < l && (str[x] == ' ' || str[x] == '\t'); x++)
 		;

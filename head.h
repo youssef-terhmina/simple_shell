@@ -55,14 +55,14 @@ int _getlineh(char **linep, size_t *n);
 /* builtin1.c */
 
 int excve(value *v);
-void exit(value *v);
-void env(value *v);
-void setenv(value *v);
-void unsetenv(value *v);
+void gexit(value *v);
+void genv(value *v);
+void gsetenv(value *v);
+void gunsetenv(value *v);
 
 /* builtin2.c */
 
-void cd(value *v);
+void gcd(value *v);
 
 /* env.c */
 
@@ -98,7 +98,7 @@ void _printf(const char *st);
 void freea(char **a);
 void simplif(value *v, const char *d);
 void init(value *v, const char *name);
-void getcmd(data *v);
+void getcmd(value *v);
 
 /* help2.c */
 

@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
 	value v;
 	(void)argc;
-	init_data(&d, argv[0]);
-	_exec(&d);
+	init(&v, argv[0]);
+	_exec(&v);
 	return (0);
 }

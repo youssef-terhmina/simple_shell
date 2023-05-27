@@ -9,11 +9,11 @@
 int excve(value *v)
 {
 	builtin builtin[] = {
-		{"exit", exit},
-		{"env", env},
-		{"setenv", setenv},
-		{"unsetenv", unsetenv},
-		{"cd", cd},
+		{"exit", gexit},
+		{"env", genv},
+		{"setenv", gsetenv},
+		{"unsetenv", gunsetenv},
+		{"cd", gcd},
 		{NULL, NULL},
 	};
 	int x;
@@ -30,12 +30,12 @@ int excve(value *v)
 }
 
 /**
- * exit - exit shell
+ * gexit - exit shell
  * @v: input
  * Return: nothing
  */
 
-void exit(value *v)
+void gexit(value *v)
 {
 	if (v->av[1] && _isnumber(v->av[1]))
 		v->exits = atoi(v->av[1]);
@@ -47,12 +47,12 @@ void exit(value *v)
 }
 
 /**
- * env - current environment
+ * genv - current environment
  * @v: input
  * Return: nothing
  */
 
-void env(value *v)
+void genv(value *v)
 {
 	int x =	0;
 
@@ -66,12 +66,12 @@ void env(value *v)
 }
 
 /**
- * setenv - Initialize new environment
+ * gsetenv - Initialize new environment
  * @v: input
  * Return: nothing
  */
 
-void setenv(value *v)
+void gsetenv(value *v)
 {
 	(void)v;
 	if (v->av[1] && v->av[2])
@@ -84,12 +84,12 @@ void setenv(value *v)
 }
 
 /**
- * unsetenv - Remove environment
+ * gunsetenv - Remove environment
  * @v: input
  * Return: nothing
  */
 
-void unsetenv(value *v)
+void gunsetenv(value *v)
 {
 	int x, y;
 	int l;
