@@ -9,27 +9,20 @@
 void gcd(value *v)
 {
 	char *di = v->av[1];
-	char cw[256], *ifst;
+	char cw[256];
 
 	if (getcwd(cw, sizeof(cw)) == NULL)
-	{
-		perror("getcw() error");
-	}
+		perror("getcwd() error");
 	_setenv(v, "PWD", cw);
-
-	if (di == NULL)
-	{
+	if (!di)
 		di = _getenv("HOME");
-	}
 	if (chdir(di) == -1)
-		perror("cdnotfound");
-
-	if (chdir(di) != -1 || di != NULL || getcwd(cw, sizeof(cw)) != NULL)
+		perror("cd");
+	else
 	{
 		_setenv(v, "OLDPWD", _getenv("PWD"));
-		ifst = getcwd(cw, sizeof(cw));
-		if (ifst == NULL)
-			perror("getcw() error");
+		if (getcwd(cw, sizeof(cw)) == NULL)
+			perror("getcwd() error");
 		_setenv(v, "PWD", cw);
 	}
 }

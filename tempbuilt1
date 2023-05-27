@@ -8,7 +8,6 @@
 
 int excve(value *v)
 {
-	int x = 0;
 	builtin builtin[] = {
 		{"exit", gexit},
 		{"env", genv},
@@ -17,15 +16,15 @@ int excve(value *v)
 		{"cd", gcd},
 		{NULL, NULL},
 	};
+	int x;
 
-	while (builtin[x].cmd)
+	for (x = 0; builtin[x].cmd; x++)
 	{
 		if (_strcmp(v->av[0], builtin[x].cmd) == 0)
 		{
 			builtin[x].f(v);
 			return (1);
 		}
-		x++;
 	}
 	return (0);
 }
@@ -42,7 +41,7 @@ void gexit(value *v)
 		v->exits = atoi(v->av[1]);
 	freea(v->av);
 	free(v->cmd);
-	if (v->flags != '\0')
+	if (v->flags)
 		freea(environ);
 	exit(v->exits);
 }
@@ -55,14 +54,14 @@ void gexit(value *v)
 
 void genv(value *v)
 {
-	int x;
+	int x =	0;
 
 	(void)v;
-
-	for (x = 0; environ[x]; x++)
+	while (environ[x])
 	{
 		_printf(environ[x]);
 		_printf("\n");
+		x++;
 	}
 }
 
@@ -75,10 +74,12 @@ void genv(value *v)
 void gsetenv(value *v)
 {
 	(void)v;
-
-	if ((v->av[1] && v->av[2]) || _setenv(v, v->av[1], v->av[2]) == -1)
+	if (v->av[1] && v->av[2])
 	{
-		perror("setenv");
+		if (_setenv(v, v->av[1], v->av[2]) == -1)
+		{
+			perror("setenv");
+		}
 	}
 }
 
@@ -90,27 +91,19 @@ void gsetenv(value *v)
 
 void gunsetenv(value *v)
 {
-	int x = 0, y;
+	int x, y;
 	int l;
 
 	(void)v;
-	if (!v->av[1])
+	if (!v->av[1] || !getenv(v->av[1]))
 	{
-		if (!getenv(v->av[1]))
-		{
-			_perror(v->name, "variable not found.");
-			return;
-		}
+		_perror(v->name, "variable not found.");
+		return;
 	}
 	l = strlen(v->av[1]);
-	while (environ[x])
-	{
+	for (x = 0; environ[x]; x++)
 		if (strncmp(environ[x], v->av[1], l) == 0 && environ[x][l] == '=')
-		{
 			for (y = x; environ[y]; y++)
 				environ[y] = environ[y + 1];
-		}
-		x++;
-	}
 }
 
