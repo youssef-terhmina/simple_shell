@@ -42,7 +42,7 @@ void gexit(value *v)
 	freea(v->av);
 	free(v->cmd);
 	if (v->flags)
-		free_array(environ);
+		freea(environ);
 	exit(v->exits);
 }
 
