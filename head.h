@@ -12,11 +12,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #define PROMPT "#csisfun$ "
-int envhan(const char *store, const char *data, int ndata);
 extern char **environ;
-char *cmd(char *cd);
-char *getit(const char *var);
-char **simples(char *buff, char *d);
 int main(int argc, char **argv);
 
 /**
@@ -92,22 +88,22 @@ char *_strcat(char *de, const char *sr);
 
 /* str2.c */
 
-char *_strdup(const char *str);
-int _isnumber(const char *status);
+char *_strdup(const char *string);
+int _isnumber(const char *stat);
 int _isdigit(int c);
 
 /* help1.c */
 
-void _printf(const char *str);
-void free_array(char **array);
-void split(data *d, const char *delim);
-void init_data(data *d, const char *shell_name);
-void read_cmd(data *d);
+void _printf(const char *st);
+void freea(char **a);
+void simplif(value *v, const char *d);
+void init(value *v, const char *name);
+void getcmd(data *v);
 
 /* help2.c */
 
-void _perror(const char *str1, const char *str2);
+void _perror(const char *str, const char *string);
 void _trim(char *str);
-void *_realloc(void *ptr, unsigned int new_size);
+void *_realloc(void *ptr, unsigned int nsize);
 
 #endif
