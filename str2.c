@@ -1,59 +1,59 @@
 #include "head.h"
+
 /**
- * _strdup - returns a pointer to a newly allocated space in memory,
- * which contains a copy of the string given as a parameter.
- *
- * @str: string input
- *
+ * _strdup - returns a pointer to a newly allocated space in memory
+ * @string: str input*
  * Return: pointer
  */
-char *_strdup(const char *str)
+char *_strdup(const char *string)
 {
-	int i, len = 0;
-	char *result;
+	int x, l = 0;
+	char *resu;
 
-	if (str == NULL)
+	if (string == NULL)
 		return (NULL);
 
-	while (str[len] != '\0')
-		len++;
+	while (string[l] != '\0')
+		l++;
 
-	result = (char *)malloc((len + 1) * sizeof(char));
+	resu = (char *)malloc((l + 1) * sizeof(char));
 
-	if (result == NULL)
+	if (resu == NULL)
 		return (NULL);
 
-	for (i = 0; i <= len; i++)
-		result[i] = str[i];
+	for (x = 0; x <= l; x++)
+		resu[x] = string[x];
 
-	return (result);
+	return (resu);
 }
 
 
 /**
- * _isnumber - check if a string is a number
- * @status: string to be checked
- * Return: void
+ * _isnumber - check if str is a nmbr
+ * @stat: string to be checked
+ * Return: nothing
  */
-int _isnumber(const char *status)
+
+int _isnumber(const char *stat)
 {
-	if (status == NULL || status[0] == '\0')
+	if (stat == NULL || stat[0] == '\0')
 		return (0);
-	while (*status)
+	while (*stat)
 	{
-		if (!_isdigit(*status))
+		if (!_isdigit(*stat))
 			return (0);
-		status++;
+		stat++;
 	}
 	return (1);
 }
 
 
 /**
- * _isdigit - check if charachter is number
- * @c: charachter
+ * _isdigit - check if char is a nmbr
+ * @c: char
  * Return: 1 if its a digit 0 otherwise
  */
+
 int _isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
