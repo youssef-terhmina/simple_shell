@@ -58,35 +58,37 @@ int _getlineh(char **linep, size_t *n);
 
 /* builtin1.c */
 
-int exec_builtin(data *d);
-void builtin_exit(data *d);
-void builtin_env(data *d);
-void builtin_setenv(data *d);
-void builtin_unsetenv(data *d);
+int excve(value *v);
+void exit(value *v);
+void env(value *v);
+void setenv(value *v);
+void unsetenv(value *v);
 
 /* builtin2.c */
 
-void builtin_cd(data *d);
+void cd(value *v);
 
 /* env.c */
 
 char *_getenv(char *name);
-int _which(data *d);
-int _setenv(data *d, char *name, char *value);
+int _which(value *v);
+char *create_entry(char *name, char *dt);
+char **_new_environ(char *name, char *dt);
+int _setenv(value *v, char *name, char *dt);
 
 /* prexec.c */
 
-void start_process(data *d);
-void handler_sigint(int sig);
-void _exec(data *d);
+void start(value *v);
+void hansig(int sig);
+void _exec(value *v);
 
 /* str1.c */
 
 unsigned int _strlen(char *str);
-int _strcmp(const char *s1, const char *s2);
-int _strncmp(const char *s1, const char *s2, int n);
-char *_strcpy(char *dest, const char *src);
-char *_strcat(char *dest, const char *src);
+int _strcmp(const char *s, const char *ss);
+int _strncmp(const char *s, const char *ss, int n);
+char *_strcpy(char *de, const char *sr);
+char *_strcat(char *de, const char *sr);
 
 /* str2.c */
 
