@@ -8,7 +8,7 @@
  */
 int main(int argc, char **argv)
 {
-	data d;
+	value v;
 	(void)argc;
 	init_data(&d, argv[0]);
 	_exec(&d);
