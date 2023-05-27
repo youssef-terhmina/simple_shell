@@ -122,7 +122,7 @@ void getcmd(value *v)
 	_trim(v->cmd);
 	for (x = 0; v->cmd[x] != '\0'; x++)
 	{
-		if (v->cmd[0] == '#' || (v->cmd[x] == '#' && v->cmd[i - 1] == ' '))
+		if (v->cmd[0] == '#' || (v->cmd[x] == '#' && v->cmd[x - 1] == ' '))
 		{
 			v->cmd[x] = '\0';
 			break;
