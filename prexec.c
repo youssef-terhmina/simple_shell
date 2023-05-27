@@ -72,7 +72,7 @@ void _exec(value *v)
 					start(v);
 				}
 			}
-			free_array(v->av);
+			freea(v->av);
 		}
 		free(v->cmd);
 	}
