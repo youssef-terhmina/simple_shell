@@ -22,7 +22,7 @@ void start(value *v)
 	return;
 free:
 	perror(v->name);
-	free_array(v->av);
+	freea(v->av);
 	free(v->cmd);
 	exit(EXIT_FAILURE);
 }
@@ -56,10 +56,10 @@ void _exec(value *v)
 		if (isatty(STDIN_FILENO))
 			_printf(prompt);
 
-		read_cmd(v);
+		getcmd(v);
 		if (_strlen(v->cmd) != 0)
 		{
-			split(v, " ");
+			simplif(v, " ");
 			if (!excve(v))
 			{
 				_which(v);
