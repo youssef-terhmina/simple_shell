@@ -39,7 +39,7 @@ void gexit(value *v)
 {
 	if (v->av[1] && _isnumber(v->av[1]))
 		v->exits = atoi(v->av[1]);
-	free_array(v->av);
+	freea(v->av);
 	free(v->cmd);
 	if (v->flags)
 		free_array(environ);

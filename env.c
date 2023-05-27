@@ -124,7 +124,7 @@ char **_new_environ(char *name, char *dt)
 		new_env[x] = malloc(strlen(environ[x]) + 1);
 		if (!new_env[x])
 		{
-			free_array(new_env);
+			freea(new_env);
 			free(new_ent);
 			return (NULL);
 		}
