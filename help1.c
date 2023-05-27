@@ -3,8 +3,9 @@
 /**
  * _printf - print a string to stander out put
  * @s: string input
- * Return: void
+ * Return: nothing
  */
+
 void _printf(const char *s)
 {
 	if (!s)
@@ -19,8 +20,9 @@ void _printf(const char *s)
 /**
  * freea - free an array of pointers
  * @a: array of pointers
- * Return: void
+ * Return: nothing
  */
+
 void freea(char **a)
 {
 	int x;
@@ -41,8 +43,9 @@ void freea(char **a)
  * simplif - split a given string by a delimiter
  * @v: data struct input
  * @d: string input
- * Return: void
+ * Return: nothing
  */
+
 void simplif(value *v, const char *d)
 {
 	char *tkn;
@@ -73,7 +76,7 @@ void simplif(value *v, const char *d)
 	v->av[ntkn] = NULL;
 	return;
 free:
-	free_array(v->av);
+	freea(v->av);
 	free(v->cmd);
 	perror(v->name);
 	exit(EXIT_FAILURE);
